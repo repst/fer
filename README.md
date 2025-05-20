@@ -158,7 +158,11 @@ However, here are some additional details on the file structure:
 
 
 ### Contact
-Please contact us if you would like access to more Picbreeder genomes for research.
+Please contact us at akarshkumar0101@gmail.com if you would like access to more Picbreeder genomes for research.
+
+<div style="text-align: center;">
+  <img src="./assets/pngs/pb_imgs.png" alt="fmaps_576_pb.png" width="800"/>
+</div>
 
 ## Bibtex Citation
 To cite our work, use the following:
