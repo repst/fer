@@ -1,15 +1,12 @@
 from functools import partial
-import numpy as np
+from typing import Union, Optional
 
+import numpy as np
 import jax
 import jax.numpy as jnp
-from jax.random import split
-import flax
+from jax import vjp, flatten_util
+from jax.tree_util import tree_flatten
 import flax.linen as nn
-
-from einops import rearrange
-
-import evosax
 
 from color import hsv2rgb
 
@@ -85,9 +82,10 @@ class CPPN(nn.Module):
         else:
             return rgb
 
+
 class FlattenCPPNParameters():
     """
-    Using evosax==0.1.6 (only old version works!!), flatten the parameters of the CPPN to a single vector.
+    Flatten the parameters of the CPPN to a single vector.
     Simplifies and makes useful for various things, like analysis.
     """
     def __init__(self, cppn):
@@ -95,7 +93,7 @@ class FlattenCPPNParameters():
 
         rng = jax.random.PRNGKey(0)
         d_in = len(self.cppn.inputs.split(","))
-        self.param_reshaper = evosax.ParameterReshaper(self.cppn.init(rng, jnp.zeros((d_in,))))
+        self.param_reshaper = ParameterReshaper(self.cppn.init(rng, jnp.zeros((d_in,))))
         self.n_params = self.param_reshaper.total_params
     
     def init(self, rng):
@@ -106,3 +104,58 @@ class FlattenCPPNParameters():
     def generate_image(self, params, img_size=256, return_features=False):
         params = self.param_reshaper.reshape_single(params)
         return self.cppn.generate_image(params, img_size=img_size, return_features=return_features)
+    
+
+class ParameterReshaper(object):
+    def __init__(
+        self,
+        placeholder_params,
+        n_devices: Optional[int] = None,
+        verbose: bool = True,
+    ):
+        """Reshape flat parameters vectors into generation eval shape."""
+        # Get network shape to reshape
+        self.placeholder_params = placeholder_params
+
+        # Set total parameters depending on type of placeholder params
+        flat, self.unravel_pytree = flatten_util.ravel_pytree(
+            placeholder_params
+        )
+        self.total_params = flat.shape[0]
+        self.reshape_single = jax.jit(self.unravel_pytree)
+
+        if n_devices is None:
+            self.n_devices = jax.local_device_count()
+        else:
+            self.n_devices = n_devices
+        if self.n_devices > 1 and verbose:
+            print(
+                f"ParameterReshaper: {self.n_devices} devices detected. Please"
+                " make sure that the ES population size divides evenly across"
+                " the number of devices to pmap/parallelize over."
+            )
+
+        if verbose:
+            print(
+                f"ParameterReshaper: {self.total_params} parameters detected"
+                " for optimization."
+            )
+
+    def flatten_single(self, x):
+        """Reshaping pytree parameters (single) into flat array."""
+        return ravel_pytree(x)
+
+
+
+def ravel_pytree(pytree):
+    leaves, _ = tree_flatten(pytree)
+    flat, _ = vjp(ravel_list, *leaves)
+    return flat
+
+
+def ravel_list(*lst):
+    return (
+        jnp.concatenate([jnp.ravel(elt) for elt in lst])
+        if lst
+        else jnp.array([])
+    )
