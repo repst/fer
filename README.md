@@ -10,7 +10,7 @@ The Fractured Entangled Representation Hypothesis
   📝<a href="https://arxiv.org/abs/2505.11581">Paper PDF</a>
 </p>
 <p align="center">
-<a href="https://colab.research.google.com/github/rjepst/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/repst/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 </p>
 
 <div align="center" style="line-height: 1.4;">
@@ -118,12 +118,12 @@ This repo contains code to:
 ### Google Colab
 For a quick start, open [src/fer.ipynb](src/fer.ipynb) in Google Colab: 
 
-<a href="https://colab.research.google.com/github/rjepst/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/repst/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ### Running Locally
 To run this project locally, you can start by cloning this repo.
 ```sh
-git clone https://github.com/rjepst/fer
+git clone https://github.com/repst/fer
 ```
 Then, set up the python virtual environment:
 ```sh
