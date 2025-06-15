@@ -10,7 +10,7 @@ The Fractured Entangled Representation Hypothesis
   📝<a href="https://arxiv.org/abs/2505.11581">Paper PDF</a>
 </p>
 <p align="center">
-<a href="https://colab.research.google.com/github/akarshkumar0101/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/rjepst/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 </p>
 
 <div align="center" style="line-height: 1.4;">
@@ -118,17 +118,17 @@ This repo contains code to:
 ### Google Colab
 For a quick start, open [src/fer.ipynb](src/fer.ipynb) in Google Colab: 
 
-<a href="https://colab.research.google.com/github/akarshkumar0101/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/rjepst/fer/blob/master/src/fer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ### Running Locally
 To run this project locally, you can start by cloning this repo.
 ```sh
-git clone https://github.com/akarshkumar0101/fer
+git clone https://github.com/rjepst/fer
 ```
-Then, set up the python environment with conda:
+Then, set up the python virtual environment:
 ```sh
-conda create --name=fer python=3.10.16 --yes
-conda activate fer
+python -m venv fer
+source fer/bin/activate
 ```
 
 Now you can install these libraries.
@@ -136,7 +136,7 @@ The versioning needs to be very specific for the following.
 However, if you don't need to train the SGD network to play around with the results; in that case you can simply install the cpu version of jax following [official guide](https://github.com/jax-ml/jax?tab=readme-ov-file#installation).
 ```sh
 python -m pip install jax==0.4.28 jaxlib==0.4.28+cuda12.cudnn89 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html --no-cache-dir
-python -m pip install flax==0.10.2 evosax==0.1.6 orbax-checkpoint==0.11.0 optax==0.2.4 --no-deps
+python -m pip install flax==0.10.2 orbax-checkpoint==0.11.0 optax==0.2.4 --no-deps
 ```
 
 Then, install all the other necessary python libraries:
