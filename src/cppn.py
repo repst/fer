@@ -6,10 +6,9 @@ import jax
 import jax.numpy as jnp
 from jax import vjp, flatten_util
 from jax.tree_util import tree_flatten
-import flax.linen as nn
 from flax import nnx
 
-from .color import hsv2rgb
+from color import hsv2rgb
 
 cache = lambda x: x
 identity = lambda x: x

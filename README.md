@@ -127,8 +127,8 @@ git clone https://github.com/repst/fer
 ```
 Then, set up the python virtual environment:
 ```sh
-python -m venv fer
-source fer/bin/activate
+python -m venv .fer
+source .fer/bin/activate
 ```
 
 Now you can install these libraries.
